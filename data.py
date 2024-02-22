@@ -1,3 +1,7 @@
+class Urls:
+    main_url = 'https://qa-scooter.praktikum-services.ru/'
+
+
 class Answers:
     """ Тексты ответов на вопросы на main_page"""
     answer_1 = 'Сутки — 400 рублей. Оплата курьеру — наличными или картой.'

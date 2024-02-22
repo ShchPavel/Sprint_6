@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 
 
 class OrderPageLocators:
+    """ Локаторы для страницы /order. """
 
     # Локаторы для первого блока 'Для кого самокат'
     INPUT_NAME = By.XPATH, '//input[contains(@placeholder,\'Имя\')]'
@@ -23,3 +24,4 @@ class OrderPageLocators:
     BUTTON_TO_MAKE_ORDER = By.XPATH, '//div[@class=\'Order_Buttons__1xGrp\']/button[text()=\'Заказать\']'
     CONFIRM_YES_BUTTON = By.XPATH, '//div[@class=\'Order_Buttons__1xGrp\']/button[text()=\'Да\']'
     CONFIRMATION_RESULT_TEXT = By.XPATH, '//div[@class=\'Order_ModalHeader__3FDaJ\']'
+

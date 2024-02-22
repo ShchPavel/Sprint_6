@@ -1,23 +1,26 @@
-from pages.main_page import MainPage
+import pytest
 from locators.order_page_locators import OrderPageLocators
+from locators.common_locators import CommonLocators
 from locators.main_page_locators import MainPageLocators
-import time
 from pages.order_page import OrderPage
-from selenium.webdriver.common.action_chains import ActionChains
+import allure
 
 
 class TestOrderPage:
 
-    def test_1(self, driver):
-        MainPage(driver).click_on_element(MainPageLocators.ORDER_BUTTON_IN_HEADER)
+    @pytest.mark.parametrize("order_button", [
+                                 CommonLocators.PAGE_HEADER_ORDER_BUTTON, MainPageLocators.ORDER_BUTTON_IN_BODY
+                                ]
+                             )
+    @allure.title('Проверка успешного сценария оформления заказа')
+    @allure.description('Проверяем успешный сценарий оформления заказа переходя на страницу с использованием локатора '
+                        'order_button')
+    def test_make_order_successful(self, driver, order_button):
         order_page = OrderPage(driver)
-        order_page.fill_owner_info_form_and_confirm()
-        order_page.fill_about_rent_form_and_confirm()
-        assert 'Заказ оформлен' in order_page.get_element_text(OrderPageLocators.CONFIRMATION_RESULT_TEXT)
+        order_page.open_main_page_and_confirm_cookies()
 
-    def test_2(self, driver):
-        MainPage(driver).scroll_and_click_element(MainPageLocators.ORDER_BUTTON_IN_BODY)
-        order_page = OrderPage(driver)
+        order_page.scroll_and_click_element(order_button)
         order_page.fill_owner_info_form_and_confirm()
         order_page.fill_about_rent_form_and_confirm()
-        assert 'Заказ оформлен' in order_page.get_element_text(OrderPageLocators.CONFIRMATION_RESULT_TEXT)
+        with allure.step('Проверяем что в форме присутствует запись "Заказ оформлен", подтверждающая успешное оформление заказа'):
+            assert 'Заказ оформлен' in order_page.get_element_text(OrderPageLocators.CONFIRMATION_RESULT_TEXT)
