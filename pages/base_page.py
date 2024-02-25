@@ -1,9 +1,6 @@
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from data import Urls
-from locators.common_locators import CommonLocators
-import allure
 
 
 class BasePage:
@@ -37,7 +34,11 @@ class BasePage:
         if self.wait_and_find_element(locator) is not None:
             return True
 
-    @allure.step('Открываем страницу https://qa-scooter.praktikum-services.ru/ и принимаем использование cookies')
-    def open_main_page_and_confirm_cookies(self):
-        self.driver.get(Urls.main_url)
-        self.click_on_element(CommonLocators.CONFIRM_COOKIES)
+    def open_page(self, url):
+        self.driver.get(url)
+
+    def switch_to_browser_tab(self, tab_number):
+        self.driver.switch_to.window(self.driver.window_handles[tab_number])
+
+    def get_current_url(self):
+        return self.driver.current_url

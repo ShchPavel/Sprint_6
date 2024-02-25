@@ -28,4 +28,8 @@ class OrderPage(BasePage):
         self.click_on_element(OrderPageLocators.BUTTON_TO_MAKE_ORDER)
         self.click_on_element(OrderPageLocators.CONFIRM_YES_BUTTON)
 
+    @allure.step('Получаем текст на странице результата оформления заказа')
+    def get_success_order_approve_text(self):
+        return self.get_element_text(OrderPageLocators.CONFIRMATION_RESULT_TEXT)
+
 
